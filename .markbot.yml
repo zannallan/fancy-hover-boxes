@@ -1,83 +1,62 @@
-repo: 'fancy-hover-boxes'
-canvasCourse: 'web-dev-3'
+repo: "fancy-hover-boxes"
+canvasCourse: "web-design-3"
 
 inherit:
   - naming-restrict-live
   - git-2
   - html
   - css
-  - modulifier
-  - modulifier-embed
-  - gridifier
-  - typografier
-  - css-order-modules-grid-type-main
+  - border-box
   - google-fonts
-  - screenshots-all
 
 html:
-  - path: 'index.html'
+  - path: "index.html"
     outline: false
     has:
-      - ['link[href*="Asap+Condensed"]', 'The Google Font, `Asap Condensed` (regular & bold) is missing']
-      - check: 'section.grid > div.unit:nth-child(1) > a.hover-box > div.embed-3by2 + div.hover-box-caption'
-        message: 'The first hover-box doesn’t have the proper HTML elements; double check that the all the elements match the lesson'
-      - check: 'section.grid > div.unit:nth-child(2) > a.hover-box > div.embed-3by2 + div.hover-box-caption'
-        message: 'The second hover-box doesn’t have the proper HTML elements; double check that the all the elements match the lesson'
-      - check: 'section.grid > div.unit:nth-child(3) > a.hover-box > div.embed-3by2 + div.hover-box-caption'
-        message: 'The third hover-box doesn’t have the proper HTML elements; double check that the all the elements match the lesson'
-      - check: 'section.grid > div.unit:nth-child(4) > a.hover-box > div.embed-3by2 + div.hover-box-caption'
-        message: 'The fourth hover-box doesn’t have the proper HTML elements; double check that the all the elements match the lesson'
+      - [
+          'link[href*="Asap+Condensed"]',
+          "The Google Font, `Asap Condensed` (regular & bold) is missing",
+        ]
     search:
-      - 'Orange butterflies'
-      - 'Black butterflies'
-      - 'Blue butterflies'
-      - 'Yellow butterflies'
+      - "Orange butterflies"
+      - "Black butterflies"
+      - "Blue butterflies"
+      - "Yellow butterflies"
 
 css:
-  - path: 'css/main.css'
+  - path: "css/main.css"
     has:
-      - ['html', 'font-family', '"Asap Condensed", sans-serif']
-      - ['.hover-box']
-      - ['.hover-box-img', ['filter', 'transition']]
-      - ['.hover-box:focus', 'z-index']
-      - ['.hover-box-caption', ['bottom', 'background-image', 'text-shadow', 'transition']]
+      - ["html", "font-family", '"Asap Condensed", sans-serif']
+      - [".hover-box"]
+      - [".hover-box img", ["filter", "transition"]]
+      - [
+          ".hover-box h2",
+          ["bottom", "background-image", "text-shadow", "transition"],
+        ]
     search:
-      - 'linear-gradient'
-      - 'linear'
-      - '.2s'
-      - 'grayscale'
-      - 'transform'
-      - 'scale'
-  - path: 'css/modules.css'
-    locked: true
-  - path: 'css/grid.css'
-    locked: true
-  - path: 'css/type.css'
-    locked: true
+      - "linear-gradient"
+      - "linear"
+      - ".2s"
+      - "grayscale"
+      - "transform"
+      - "scale"
 
 screenshots:
-  - path: 'index.html'
-    label: 'Hovered'
-    sizes: [1440]
-    before: |
-      const sel = '.grid > .unit:nth-child(3) .hover-box';
-
-      on(sel, 'transitionend', done);
-      $(sel).focus();
+  - path: "index.html"
+    sizes: [320, 680, 1440]
 
 functionality:
-  - path: 'index.html'
+  - path: "index.html"
     test: |
-      const box = $('.unit:nth-child(3) .hover-box');
-      const capt = $('.unit:nth-child(3) .hover-box-caption');
-      const img = $('.unit:nth-child(3) .hover-box-img');
+      const box = $('.hover-box:nth-child(3)');
+      const capt = $('.hover-box:nth-child(3) h2');
+      const img = $('.hover-box:nth-child(3) img');
       const oldCaptBot = css(capt).bottom;
       const oldImgTransform = css(img).transform;
 
       on(box, 'transitionend', () => {
-        if (css(capt).bottom == oldCaptBot) return fail('The `bottom` coordinate of the `.hover-box-caption` doesn’t change when hovered');
-        if (css(img).transform == oldImgTransform) return fail('The `transform` property of the `.hover-box-img` doesn’t change when hovered');
-
+        if (css(capt).bottom == oldCaptBot) return fail('The `bottom` coordinate of the `.hover-box h2` doesn’t change when hovered');
+        if (css(img).transform == oldImgTransform) return fail('The `transform` property of the `.hover-box img` doesn’t change when hovered');
         pass();
       });
 
